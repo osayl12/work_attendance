@@ -8,8 +8,9 @@ async function CheckIn(formData) {
     body: JSON.stringify(formData),
     credentials: "include",
   });
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-  return response.json();
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || "שגיאה — נסה שנית");
+  return data;
 }
 
 async function CheckOut(formData) {
@@ -19,8 +20,9 @@ async function CheckOut(formData) {
     body: JSON.stringify(formData),
     credentials: "include",
   });
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-  return response.json();
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || "שגיאה — נסה שנית");
+  return data;
 }
 
 async function GetReport(id_number, year, month) {

@@ -11,10 +11,10 @@ function AppLayout() {
             display:              "grid",
             minHeight:            "100vh",
             gridTemplateRows:     `${HeaderHeight}px 1fr ${FooterHeight}px`,
-            gridTemplateColumns:  { xs: "1fr", md: `${menuWidth}px 1fr` },
+            gridTemplateColumns:  { xs: "1fr", md: `1fr ${menuWidth}px` },
             gridTemplateAreas:    {
                 xs: `"header" "main" "footer"`,
-                md: `"header header" "nav main" "footer footer"`,
+                md: `"header header" "main nav" "footer footer"`,
             },
         }}>
             <Header />
