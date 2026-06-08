@@ -11,21 +11,21 @@ import router from "./Routers/main_R.jsx";
 
 const queryClient = new QueryClient();
 const cacheRtl = createCache({
-    key: "muirtl",
-    stylisPlugins: [prefixer, rtlPlugin],
+  key: "muirtl",
+  stylisPlugins: [prefixer, rtlPlugin],
 });
 
 function App() {
-    return (
-        <QueryClientProvider client={queryClient}>
-            <CacheProvider value={cacheRtl}>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <RouterProvider router={router} />
-                </ThemeProvider>
-            </CacheProvider>
-        </QueryClientProvider>
-    );
+  return (
+    <QueryClientProvider client={queryClient}>
+      <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </CacheProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;

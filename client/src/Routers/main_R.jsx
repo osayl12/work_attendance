@@ -10,26 +10,26 @@ import CheckOutPage from "../_Features/Attendance/CheckOutPage.jsx";
 import ReportPage from "../_Features/Attendance/ReportPage.jsx";
 
 function HomePage() {
-    return <h2>ברוך הבא לשעון הנוכחות</h2>;
+  return <h2>ברוך הבא לשעון הנוכחות</h2>;
 }
 
 const router = createBrowserRouter([
-    {
-        element: <AppLayout />,
-        children: [
-            { path: "/",         element: <HomePage />   },
-            { path: "/CheckIn",  element: <CheckInPage />  },
-            { path: "/CheckOut", element: <CheckOutPage /> },
-            { path: "/Report",   element: <ReportPage />   },
-        ],
-    },
+  {
+    element: <AppLayout />,
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/CheckIn", element: <CheckInPage /> },
+      { path: "/CheckOut", element: <CheckOutPage /> },
+      { path: "/Report", element: <ReportPage /> },
+    ],
+  },
 ]);
 
 export const navItems = [
-    { path: "/",         name: "ראשי",         icon: <HomeIcon />       },
-    { path: "/CheckIn",  name: "כניסה",         icon: <LoginIcon />      },
-    { path: "/CheckOut", name: "יציאה",         icon: <LogoutIcon />     },
-    { path: "/Report",   name: "דוח נוכחות",    icon: <AssessmentIcon /> },
+  { path: "/", name: "ראשי", icon: <HomeIcon /> },
+  { path: "/CheckIn", name: "כניסה", icon: <LoginIcon /> },
+  { path: "/CheckOut", name: "יציאה", icon: <LogoutIcon /> },
+  { path: "/Report", name: "דוח נוכחות", icon: <AssessmentIcon /> },
 ];
 
 export default router;

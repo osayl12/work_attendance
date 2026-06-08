@@ -53,9 +53,9 @@ function useGetReport(id_number, year, month) {
     queryKey: ["report", id_number, year, month],
     queryFn: () => GetReport(id_number, year, month),
     enabled: !!id_number && !!year && !!month,
-    staleTime: 5 * 60 * 1000,
-    gcTime: 5 * 60 * 1000,
-    retry: (failureCount) => failureCount < 3,
+    staleTime: 5 * 60 * 1000, // אם בקשנו את הבקשה בתוך ה 5 דקות הבאות לא נבצע את הבקשה שוב אלא נחזיר את התוצאה מהמטמון
+    gcTime: 5 * 60 * 1000, // אם הבקשה לא נדרשת בתוך 5 דקות היא תימחק מהמטמון
+    retry: (failureCount) => failureCount < 3, // ננסה לשלוח את הבקשה עד 3 פעמים במקרה של כשלון
   });
   return query;
 }

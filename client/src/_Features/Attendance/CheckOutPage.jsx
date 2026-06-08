@@ -54,7 +54,12 @@ function CheckOutPage() {
           {checkOutSuccess && (
             <Alert severity="success">יציאה נרשמה בהצלחה! ✅</Alert>
           )}
-{checkOutError && <Alert severity="error">{checkOutErrorMsg?.message || "שגיאה — נסה שנית"}</Alert>}        </Box>
+          {checkOutError && (
+            <Alert severity="error">
+              {checkOutErrorMsg?.message || "שגיאה — נסה שנית"}
+            </Alert>
+          )}{" "}
+        </Box>
       </form>
     </Box>
   );
