@@ -34,7 +34,7 @@ CREATE DATABASE work_attendance;
 ```
 Then import the file:
 ```
-server/work_attendance.sql
+SQL/employees.sql
 ```
 
 ### Server Setup
