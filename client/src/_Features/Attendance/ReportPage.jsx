@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import Autocomplete from "@mui/material/Autocomplete";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,7 +11,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useGetReport } from "./apiHookAttendance.js";
+import { useGetReport, useGetEmployees } from "./apiHookAttendance.js";
 
 function ReportPage() {
   const [filters, setFilters] = useState({
@@ -19,7 +20,9 @@ function ReportPage() {
     month: "",
   });
   const [search, setSearch] = useState({ id_number: "", year: "", month: "" });
-
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+ const { data: { list: employeesArr } = {}, isLoading: isLoadingEmployees } =
+    useGetEmployees();
   const {
     data: { list: reportArr } = {},
     isLoading,
@@ -27,6 +30,13 @@ function ReportPage() {
     error,
   } = useGetReport(search.id_number, search.year, search.month);
 
+   const handleEmployeeChange = (e, newValue) => {
+    setSelectedEmployee(newValue);
+    setFilters((prev) => ({
+      ...prev,
+      id_number: newValue ? newValue.id_number : "",
+    }));
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
@@ -50,13 +60,17 @@ function ReportPage() {
 
       <form onSubmit={handleSubmit}>
         <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
-          <TextField
-            name="id_number"
-            label="תעודת זהות"
-            onChange={handleChange}
-            value={filters.id_number}
-            required
-            inputProps={{ maxLength: 9 }}
+        <Autocomplete
+            options={employeesArr || []}
+            getOptionLabel={(option) => `${option.name} (${option.id_number})`}
+            value={selectedEmployee}
+            onChange={handleEmployeeChange}
+            loading={isLoadingEmployees}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            sx={{ width: 280 }}
+            renderInput={(params) => (
+              <TextField {...params} label="בחר עובד" required />
+            )}
           />
           <TextField
             name="year"

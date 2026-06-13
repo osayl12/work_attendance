@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { CheckIn, CheckOut, GetReport } from "./apiAttendance.js";
+import { CheckIn, CheckOut, GetReport ,GetAllEmployees} from "./apiAttendance.js";
 
 function useCheckIn() {
   const queryClient = useQueryClient();
@@ -60,4 +60,14 @@ function useGetReport(id_number, year, month) {
   return query;
 }
 
-export { useCheckIn, useCheckOut, useGetReport };
+function useGetEmployees() {
+    const query = useQuery({
+        queryKey: ["employees"],
+        queryFn:  GetAllEmployees,
+        staleTime: 10 * 60 * 1000,
+        gcTime:    10 * 60 * 1000,
+    });
+    return query;
+}
+
+export { useCheckIn, useCheckOut, useGetReport, useGetEmployees };

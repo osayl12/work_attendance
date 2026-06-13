@@ -38,4 +38,14 @@ async function GetReport(id_number, year, month) {
   return response.json();
 }
 
-export { CheckIn, CheckOut, GetReport };
+async function GetAllEmployees() {
+    const response = await fetch(`${backURL}/${section}/Employees`, {
+        method: "GET",
+        headers: { accept: "application/json" },
+        credentials: "include",
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "שגיאה — נסה שנית");
+    return data;
+}
+export { CheckIn, CheckOut, GetReport, GetAllEmployees };
