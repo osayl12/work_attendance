@@ -118,4 +118,24 @@ async function GetReport(req, res, next) {
   next();
 }
 
-module.exports = { CheckIn, CheckOut, GetReport };
+async function GetAllEmployees(req, res, next) {
+    res.ok  = false;
+    res.err = "";
+
+    let Query  = `SELECT id, id_number, name FROM employees `;
+        Query += `ORDER BY name `;
+    let values = [];
+
+    let rows = await GenObj_Mid.QueryExecSimpleReply(Query, values);
+
+    if (rows === false) {
+        res.err = "חלה תקלה, נא לנסות שנית";
+        return res.status(500).json({ status: "ERROR", err: res.err });
+    }
+
+    res.ok        = true;
+    req.ItemsData = { list: rows };
+    next();
+}
+
+module.exports = { CheckIn, CheckOut, GetReport,GetAllEmployees  };

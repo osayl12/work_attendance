@@ -22,3 +22,10 @@ router.get(
     else return res.status(400).json({ message: res.err });
   },
 );
+
+router.get("/Employees", [attendance_Mid.GetAllEmployees], (req, res) => {
+    if (res.ok)
+        res.status(200).json(req.ItemsData);
+    else
+        return res.status(400).json({ message: res.err });
+});
