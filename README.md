@@ -20,7 +20,7 @@ work-attendance/
 
 - ✅ Employee Check-In by ID number
 - ✅ Employee Check-Out by ID number
-- ✅ Attendance Report by employee and month
+- ✅ Attendance Report by employee and month(with employee filter by typing)
 
 ## Getting Started
 
@@ -60,6 +60,7 @@ Client runs on: `http://localhost:5173`
 | POST | `/api/ATT/CheckIn` | Register employee check-in |
 | POST | `/api/ATT/CheckOut` | Register employee check-out |
 | GET | `/api/ATT/Report/:id/:year/:month` | Get attendance report |
+| GET | `/api/ATT/Employees` | Get all employees (for autocomplete) |
 
 ## Author
 
