@@ -5,9 +5,6 @@ const secondaryColor = "#dc004e";
 const bgColor = "#f5f5f5";
 const headerBgColor = "#1976d2";
 const headerTextColor = "#ffffff";
-const navBgColor = "#ffffff";
-const footerBgColor = "#1976d2";
-const footerTextColor = "#ffffff";
 const tableHeadBg = "#1976d2";
 const tableHeadText = "#ffffff";
 
