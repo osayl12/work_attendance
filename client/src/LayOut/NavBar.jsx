@@ -1,42 +1,98 @@
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Box from "@mui/material/Box";
-import { useNavigate, useLocation } from "react-router";
-import { navItems } from "../Routers/main_R.jsx";
-import { menuWidth } from "../theme_params.jsx";
+import {
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Box,
+    Drawer,
+    useTheme,
+    useMediaQuery,
+} from '@mui/material';
+import { NavLink, useLocation } from 'react-router';
+import { navItems } from '../Routers/main_R.jsx';
+import { menuWidth } from '../theme_params.jsx';
 
-function NavBar() {
-  const navigate = useNavigate();
-  const location = useLocation();
+const NavBar = ({ mobileOpen, onClose }) => {
+    const theme = useTheme();
+    const location = useLocation();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  return (
-    <Box
-      sx={{
-        gridArea: "nav",
-        width: menuWidth,
-        backgroundColor: "white",
-        borderLeft: "1px solid #e0e0e0",
-        display: { xs: "none", md: "block" },
-      }}
-    >
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item.path} disablePadding>
-            <ListItemButton
-              selected={location.pathname === item.path}
-              onClick={() => navigate(item.path)}
+    const drawerContent = (
+        <Box sx={{ height: '100%' }}>
+            <List component="nav" sx={{ height: '100%' }}>
+                {navItems.map((item) => {
+                    const isSelected = location.pathname === item.path;
+                    return (
+                        <ListItem
+                            button
+                            key={item.path}
+                            selected={isSelected}
+                            component={NavLink}
+                            to={item.path}
+                            onClick={() => isMobile && onClose()}
+                            sx={{
+                                backgroundColor: isSelected
+                                    ? theme.palette.nav.selected.background
+                                    : theme.palette.nav.main,
+                                color: isSelected
+                                    ? theme.palette.nav.selected.text
+                                    : theme.palette.nav.text,
+                                '&:hover': {
+                                    backgroundColor: theme.palette.nav.hover.background,
+                                    color: theme.palette.nav.hover.text,
+                                },
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    minWidth: 40,
+                                    color: isSelected
+                                        ? theme.palette.nav.selected.text
+                                        : theme.palette.nav.text,
+                                }}
+                            >
+                                {item.icon}
+                            </ListItemIcon>
+                            <ListItemText primary={item.name} />
+                        </ListItem>
+                    );
+                })}
+            </List>
+        </Box>
+    );
+
+    return (
+        <Box component="nav" sx={{ gridArea: { md: 'nav' }, height: '100%' }}>
+            {/* תפריט נגרר — מסך קטן */}
+            <Drawer
+                anchor="left"
+                variant="temporary"
+                open={mobileOpen}
+                onClose={onClose}
+                ModalProps={{ keepMounted: true }}
+                sx={{
+                    display: { xs: 'block', md: 'none' },
+                    '& .MuiDrawer-paper': {
+                        width: menuWidth,
+                        backgroundColor: theme.palette.nav.main,
+                    },
+                }}
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-}
+                {drawerContent}
+            </Drawer>
+
+            {/* תפריט צד — מסך גדול */}
+            <Box
+                sx={{
+                    display: { xs: 'none', md: 'block' },
+                    height: '100%',
+                    backgroundColor: theme.palette.nav.main,
+                }}
+            >
+                {drawerContent}
+            </Box>
+        </Box>
+    );
+};
 
 export default NavBar;
