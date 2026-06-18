@@ -11,6 +11,9 @@ const tableHeadText = "#ffffff";
 export const HeaderHeight = 64;
 export const FooterHeight = 48;
 export const menuWidth = 220;
+export const HeaderBgColor = headerBgColor;
+export const FooterBgColor = headerBgColor;
+export const FooterTxtColor = headerTextColor;
 
 const theme = createTheme({
   direction: "rtl",
@@ -18,6 +21,12 @@ const theme = createTheme({
     primary: { main: primaryColor },
     secondary: { main: secondaryColor },
     background: { default: bgColor },
+    nav: {
+      main: "#ffffff",
+      text: "#555555",
+      selected: { background: primaryColor, text: "#ffffff" },
+      hover: { background: "#e3f2fd", text: primaryColor },
+    },
   },
   components: {
     MuiAppBar: {
@@ -62,4 +71,4 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+export { theme };
